@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="A curated portal of Jun Wang's AI agents, apps, personal sites, community projects, and experiments."
+    />
+    <title>Jun Wang Project Hub</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Manrope:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="page-shell">
+      <header class="site-header">
+        <a class="brand-lockup" href="#">
+          <span class="brand-mark">JW</span>
+          <span>
+            <strong>Jun Wang Project Hub</strong>
+            <small>AI, software, media, and personal systems</small>
+          </span>
+        </a>
+
+        <nav class="top-nav" aria-label="Primary navigation">
+          <a href="#ai-agents">AI Agents</a>
+          <a href="#all-projects">Projects</a>
+        </nav>
+      </header>
+
+      <main>
+        <section class="hero-section" aria-labelledby="hero-title">
+          <div class="hero-copy">
+            <p class="eyebrow">project.junwang.us</p>
+            <h1 id="hero-title">One portal for the systems, agents, apps, and stories I am building.</h1>
+            <p class="hero-lede">
+              A living index for public projects, protected tools, works in progress, and personal websites.
+              Each card keeps the purpose, URL, category, and current status in one clean place.
+            </p>
+            <div class="hero-actions">
+              <a class="primary-action" href="#all-projects">Browse projects</a>
+              <a class="secondary-action" href="#ai-agents">View AI agents</a>
+            </div>
+          </div>
+
+          <aside class="command-panel" aria-label="Portal summary">
+            <div class="panel-topline">
+              <span>Project Atlas</span>
+              <strong id="project-count">0</strong>
+            </div>
+            <div class="signal-grid">
+              <div>
+                <small>Categories</small>
+                <strong id="category-count">0</strong>
+              </div>
+              <div>
+                <small>AI systems</small>
+                <strong id="ai-count">0</strong>
+              </div>
+              <div>
+                <small>Live links</small>
+                <strong id="live-count">0</strong>
+              </div>
+            </div>
+            <div class="route-stack" id="route-stack"></div>
+          </aside>
+        </section>
+
+        <section class="feature-band" id="ai-agents" aria-labelledby="agents-title">
+          <div class="section-heading">
+            <p class="eyebrow">Featured agents</p>
+            <h2 id="agents-title">AI agents with distinct operating roles.</h2>
+          </div>
+          <div class="agent-grid" id="agent-grid"></div>
+        </section>
+
+        <section class="projects-section" id="all-projects" aria-labelledby="projects-title">
+          <div class="section-heading compact">
+            <p class="eyebrow">Directory</p>
+            <h2 id="projects-title">All projects</h2>
+          </div>
+
+          <div class="toolbar" aria-label="Project filters">
+            <div class="search-wrap">
+              <span aria-hidden="true">⌕</span>
+              <input id="search-input" type="search" placeholder="Search projects, URLs, tags..." />
+            </div>
+            <div class="category-tabs" id="category-tabs"></div>
+          </div>
+
+          <div class="project-grid" id="project-grid"></div>
+        </section>
+      </main>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
