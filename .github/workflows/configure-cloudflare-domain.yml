@@ -1,0 +1,65 @@
+name: Configure Cloudflare Domain
+
+on:
+  workflow_dispatch:
+
+jobs:
+  configure:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Configure Pages custom domain and DNS
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          ZONE_NAME: junwang.us
+          CUSTOM_DOMAIN: project.junwang.us
+          PAGES_PROJECT: project-junwang-us
+          PAGES_TARGET: project-junwang-us.pages.dev
+        run: |
+          set -euo pipefail
+
+          api() {
+            curl -fsS \
+              -H "Authorization: Bearer ${CLOUDFLARE_API_TOKEN}" \
+              -H "Content-Type: application/json" \
+              "$@"
+          }
+
+          zone_response="$(api "https://api.cloudflare.com/client/v4/zones?name=${ZONE_NAME}")"
+          zone_id="$(jq -r '.result[0].id // empty' <<<"${zone_response}")"
+
+          if [[ -z "${zone_id}" ]]; then
+            echo "Could not find Cloudflare zone ${ZONE_NAME}."
+            echo "${zone_response}"
+            exit 1
+          fi
+
+          domains_response="$(api "https://api.cloudflare.com/client/v4/accounts/${CLOUDFLARE_ACCOUNT_ID}/pages/projects/${PAGES_PROJECT}/domains")"
+          if jq -e --arg domain "${CUSTOM_DOMAIN}" '.result[]? | select(.name == $domain)' <<<"${domains_response}" >/dev/null; then
+            echo "Pages custom domain ${CUSTOM_DOMAIN} already exists."
+          else
+            api -X POST \
+              "https://api.cloudflare.com/client/v4/accounts/${CLOUDFLARE_ACCOUNT_ID}/pages/projects/${PAGES_PROJECT}/domains" \
+              --data "{\"name\":\"${CUSTOM_DOMAIN}\"}"
+            echo "Added Pages custom domain ${CUSTOM_DOMAIN}."
+          fi
+
+          record_response="$(api "https://api.cloudflare.com/client/v4/zones/${zone_id}/dns_records?type=CNAME&name=${CUSTOM_DOMAIN}")"
+          record_id="$(jq -r '.result[0].id // empty' <<<"${record_response}")"
+          dns_payload="$(jq -n \
+            --arg name "project" \
+            --arg content "${PAGES_TARGET}" \
+            '{type:"CNAME", name:$name, content:$content, ttl:1, proxied:true}')"
+
+          if [[ -n "${record_id}" ]]; then
+            api -X PUT \
+              "https://api.cloudflare.com/client/v4/zones/${zone_id}/dns_records/${record_id}" \
+              --data "${dns_payload}"
+            echo "Updated DNS CNAME ${CUSTOM_DOMAIN} -> ${PAGES_TARGET}."
+          else
+            api -X POST \
+              "https://api.cloudflare.com/client/v4/zones/${zone_id}/dns_records" \
+              --data "${dns_payload}"
+            echo "Created DNS CNAME ${CUSTOM_DOMAIN} -> ${PAGES_TARGET}."
+          fi
