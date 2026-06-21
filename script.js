@@ -14,13 +14,14 @@ const projects = [
   {
     name: "Elon",
     system: "Hermes AI Agent",
-    url: "https://openwebui.junwang.us",
+    url: "https://hermes.junwang.us",
+    previewUrl: "https://openwebui.junwang.us",
     category: "AI Agents & Platforms",
     status: ["In progress", "Protected"],
     featured: true,
     color: "#79d7ff",
     description:
-      "A developing Hermes agent workspace accessed through the protected Open WebUI environment instead of a separate web UI.",
+      "A developing Hermes agent identity with previews handled through the protected Open WebUI environment.",
     tags: ["Hermes", "Agent", "Open WebUI"]
   },
   {
@@ -192,7 +193,7 @@ function renderAgents() {
                 .map((status) => `<span class="status-chip ${statusClass(status)}">${status}</span>`)
                 .join("")}
             </div>
-            <a href="${project.url}" target="_blank" rel="noreferrer">Open ↗</a>
+            <a href="${project.previewUrl || project.url}" target="_blank" rel="noreferrer">Open ↗</a>
           </div>
         </article>
       `
@@ -205,6 +206,7 @@ function matchesSearch(project, query) {
     project.name,
     project.system,
     project.url,
+    project.previewUrl || "",
     project.category,
     project.description,
     ...project.status,
@@ -253,7 +255,9 @@ function renderProjects() {
           </div>
           <div class="card-footer">
             <span>${project.category.split(" ")[0]}</span>
-            <a href="${project.url}" target="_blank" rel="noreferrer">Visit project ↗</a>
+            <a href="${project.previewUrl || project.url}" target="_blank" rel="noreferrer">${
+              project.previewUrl ? "Preview project" : "Visit project"
+            } ↗</a>
           </div>
         </article>
       `
