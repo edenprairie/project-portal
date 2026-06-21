@@ -14,14 +14,14 @@ const projects = [
   {
     name: "Elon",
     system: "Hermes AI Agent",
-    url: "https://hermes.junwang.us",
+    url: "https://openwebui.junwang.us",
     category: "AI Agents & Platforms",
     status: ["In progress", "Protected"],
     featured: true,
     color: "#79d7ff",
     description:
-      "A developing AI agent workspace under the Hermes name, planned as a protected Cloudflare-hosted system.",
-    tags: ["Hermes", "Agent", "Cloudflare"]
+      "A developing Hermes agent workspace accessed through the protected Open WebUI environment instead of a separate web UI.",
+    tags: ["Hermes", "Agent", "Open WebUI"]
   },
   {
     name: "Open WebUI",
