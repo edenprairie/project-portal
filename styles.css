@@ -551,13 +551,17 @@ input::placeholder {
 }
 
 .project-title-link {
+  display: inline-block;
   color: var(--text);
+  cursor: pointer;
   text-decoration: none;
+  text-underline-offset: 4px;
   transition: color 160ms ease;
 }
 
 .project-title-link:hover {
   color: var(--green);
+  text-decoration: underline;
 }
 
 .project-url {
