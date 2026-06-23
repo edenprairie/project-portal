@@ -550,12 +550,27 @@ input::placeholder {
   margin-top: 4px;
 }
 
+.project-title-link {
+  color: var(--text);
+  text-decoration: none;
+  transition: color 160ms ease;
+}
+
+.project-title-link:hover {
+  color: var(--green);
+}
+
 .project-url {
   display: inline-block;
   margin-bottom: 16px;
   color: var(--green);
   font-size: 13px;
   font-weight: 800;
+  transition: color 160ms ease;
+}
+
+.project-url:hover {
+  color: var(--cyan);
 }
 
 .tags {

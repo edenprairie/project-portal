@@ -252,7 +252,11 @@ function renderProjects() {
             </div>
           </div>
           <small>${project.system}</small>
-          <h3>${project.name}</h3>
+          <h3>
+            <a class="project-title-link" href="${project.url}" target="_blank" rel="noreferrer">
+              ${project.name}
+            </a>
+          </h3>
           <a class="project-url" href="${project.url}" target="_blank" rel="noreferrer">${project.url.replace(
             "https://",
             ""
