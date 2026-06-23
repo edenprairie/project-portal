@@ -56,6 +56,16 @@ const projects = [
     tags: ["Travel", "Planning", "Memories"]
   },
   {
+    name: "Jun Wang Docs",
+    system: "Personal Document Site",
+    url: "https://docs.junwang.us",
+    category: "Personal Sites",
+    status: ["Live"],
+    description:
+      "A personal document site, notes archive, and blog for knowledge, records, home references, technology notes, and field notes.",
+    tags: ["Docs", "Knowledge Base", "Blog"]
+  },
+  {
     name: "Minnesota Local Guide",
     system: "TourMN",
     url: "https://mn.junwang.us",
